@@ -7,7 +7,6 @@ type AlarmoTileCardConfig = {
   type: 'custom:alarmo-tile-card';
   entity: string;
   modes?: AlarmMode[];
-  frameless?: boolean;
 };
 
 type HomeAssistant = {
@@ -28,7 +27,6 @@ export class AlarmoTileCard extends LitElement {
     return {
       type: 'custom:alarmo-tile-card',
       entity: Object.keys(hass.states).find((entityId) => entityId.startsWith('alarm_control_panel.')) || '',
-      frameless: false,
     };
   }
 
@@ -76,9 +74,7 @@ export class AlarmoTileCard extends LitElement {
   protected render() {
     if (!this.hass || !this._config) return nothing;
     const style = `--feature-color: ${this._featureColor()}`;
-    return this._config.frameless
-      ? html`<div class="container frameless" style=${style}>${this._renderFeature()}</div>`
-      : html`<ha-card class="container framed" style=${style}>${this._renderFeature()}</ha-card>`;
+    return html`<ha-card class="container" style=${style}>${this._renderFeature()}</ha-card>`;
   }
 
   static styles = css`
@@ -87,13 +83,7 @@ export class AlarmoTileCard extends LitElement {
       --feature-button-spacing: 2px;
       --control-select-button-spacing: var(--feature-button-spacing);
       --feature-height: 56px;
-    }
-    .framed {
       padding: 4px;
-    }
-    .frameless {
-      display: block;
-      padding: 0;
     }
   `;
 }

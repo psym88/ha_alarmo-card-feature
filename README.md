@@ -56,15 +56,11 @@ the additional sensor rows are hidden in the inline layout.
 ```yaml
 type: custom:alarmo-tile-card
 entity: alarm_control_panel.alarmo
-frameless: false
 modes:
   - disarmed
   - armed_away
   - armed_home
 ```
-
-Set `frameless: true` to render the controls without an `ha-card`
-background, border, shadow, or additional card padding.
 
 ## Development
 
