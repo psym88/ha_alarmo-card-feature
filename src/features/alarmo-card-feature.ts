@@ -604,18 +604,29 @@ export class AlarmoCardFeature extends LitElement {
     );
   }
 
-  private _renderTriggeredSensors(sensorIds: string[]) {
+  private _renderSensorList(sensorIds: string[], type: 'triggered' | 'bypassed') {
     if (this._inline || !sensorIds.length || !this.hass) return nothing;
+    const triggered = type === 'triggered';
     return html`
-      <div class="triggered-sensors">
-        <div class="triggered-heading">
-          <ha-icon icon="mdi:alert"></ha-icon>
-          <span>${this.hass.language?.startsWith('de') ? 'Ausgelöst durch' : 'Triggered by'}</span>
+      <div class=${`sensor-list ${type}`}>
+        <div class="sensor-heading">
+          <ha-icon icon=${triggered ? 'mdi:alert' : 'mdi:shield-alert-outline'}></ha-icon>
+          <span
+            >${
+              this.hass.language?.startsWith('de')
+                ? triggered
+                  ? 'Ausgelöst durch'
+                  : 'Umgangene Sensoren'
+                : triggered
+                  ? 'Triggered by'
+                  : 'Bypassed sensors'
+            }</span
+          >
         </div>
         ${sensorIds.map((entityId) => {
           const stateObj = this.hass!.states[entityId];
           return html`
-            <button class="triggered-sensor" @click=${() => this._showSensor(entityId)}>
+            <button class="sensor-row" @click=${() => this._showSensor(entityId)}>
               <ha-state-icon .hass=${this.hass} .stateObj=${stateObj}></ha-state-icon>
               <span>${this._sensorName(stateObj, entityId)}</span>
             </button>
@@ -631,27 +642,6 @@ export class AlarmoCardFeature extends LitElement {
       return this.hass.formatEntityName(stateObj, this._config.name) || entityId;
     }
     return stateObj.attributes.friendly_name || entityId;
-  }
-
-  private _renderBypassedSensors(sensorIds: string[]) {
-    if (this._inline || !sensorIds.length || !this.hass) return nothing;
-    return html`
-      <div class="bypassed-sensors">
-        <div class="bypassed-heading">
-          <ha-icon icon="mdi:shield-alert-outline"></ha-icon>
-          <span>${this.hass.language?.startsWith('de') ? 'Umgangene Sensoren' : 'Bypassed sensors'}</span>
-        </div>
-        ${sensorIds.map((entityId) => {
-          const stateObj = this.hass!.states[entityId];
-          return html`
-            <button class="bypassed-sensor" @click=${() => this._showSensor(entityId)}>
-              <ha-state-icon .hass=${this.hass} .stateObj=${stateObj}></ha-state-icon>
-              <span>${this._sensorName(stateObj, entityId)}</span>
-            </button>
-          `;
-        })}
-      </div>
-    `;
   }
 
   protected render() {
@@ -728,7 +718,7 @@ export class AlarmoCardFeature extends LitElement {
               `
         }
       </div>
-      ${this._renderTriggeredSensors(triggeredSensors)} ${this._renderBypassedSensors(bypassedSensors)}
+      ${this._renderSensorList(triggeredSensors, 'triggered')} ${this._renderSensorList(bypassedSensors, 'bypassed')}
       ${this._renderCodeDialog()}
     `;
   }
@@ -840,44 +830,38 @@ export class AlarmoCardFeature extends LitElement {
       --control-button-background-color: var(--red-color);
       --control-button-icon-color: var(--red-color);
     }
-    .triggered-sensors {
+    .sensor-list {
+      border-radius: var(--feature-border-radius);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 6px;
+      padding: 10px;
+    }
+    .sensor-list.triggered {
       background: var(--ha-color-fill-danger-quiet, rgba(219, 68, 55, 0.08));
-      border-radius: var(--feature-border-radius);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 6px;
-      padding: 10px;
     }
-    .bypassed-sensors {
+    .sensor-list.bypassed {
       background: var(--ha-color-fill-warning-quiet, rgba(255, 152, 0, 0.1));
-      border-radius: var(--feature-border-radius);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 6px;
-      padding: 10px;
     }
-    .triggered-heading {
+    .sensor-heading {
       align-items: center;
+      display: flex;
+      font-weight: 500;
+      gap: 8px;
+    }
+    .sensor-list.triggered .sensor-heading {
       color: var(--error-color, var(--red-color));
-      display: flex;
-      font-weight: 500;
-      gap: 8px;
     }
-    .bypassed-heading {
-      align-items: center;
+    .sensor-list.bypassed .sensor-heading {
       color: var(--warning-color, var(--orange-color));
-      display: flex;
-      font-weight: 500;
-      gap: 8px;
     }
-    .bypassed-heading ha-icon,
-    .bypassed-sensor ha-state-icon {
+    .sensor-list.bypassed .sensor-heading ha-icon,
+    .sensor-list.bypassed .sensor-row ha-state-icon {
       color: var(--warning-color, var(--orange-color));
       --state-icon-color: var(--warning-color, var(--orange-color));
     }
-    .triggered-sensor {
+    .sensor-row {
       align-items: center;
       background: transparent;
       border: 0;
@@ -888,19 +872,7 @@ export class AlarmoCardFeature extends LitElement {
       gap: 10px;
       grid-template-columns: 28px 1fr;
       padding: 6px;
-      text-align: start;
-    }
-    .bypassed-sensor {
-      align-items: center;
-      background: transparent;
-      border: 0;
-      color: var(--primary-text-color);
-      cursor: pointer;
-      display: grid;
-      font: inherit;
-      gap: 10px;
-      grid-template-columns: 28px 1fr;
-      padding: 6px;
+      padding-inline-start: 32px;
       text-align: start;
     }
   `;
