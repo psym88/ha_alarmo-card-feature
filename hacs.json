@@ -1,0 +1,6 @@
+{
+  "name": "Alarmo Tile Feature",
+  "render_readme": true,
+  "filename": "alarmo-card-feature.js",
+  "homeassistant": "2026.5.0"
+}
