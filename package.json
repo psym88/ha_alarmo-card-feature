@@ -1,6 +1,6 @@
 {
   "name": "alarmo-card-feature",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "HA Alarmo Tile Feature and standalone Alarmo Tile Card for Home Assistant",
   "main": "dist/alarmo-card-feature.js",
   "type": "module",
