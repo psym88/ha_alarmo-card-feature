@@ -673,6 +673,7 @@ export class AlarmoCardFeature extends LitElement {
         : this.hass.localize(
             `ui.card.alarm_control_panel.${stateObj.state === ALARM_STATES.arming ? 'arm' : 'disarm'}`
           );
+    const pendingColor = stateObj.state === ALARM_STATES.arming ? 'var(--green-color)' : 'var(--red-color)';
     const options: ControlSelectOption[] = modes.map((mode) => ({
       value: mode,
       label:
@@ -695,7 +696,7 @@ export class AlarmoCardFeature extends LitElement {
             ? html`
                 <button
                   class="pending-control"
-                  style=${`--countdown-progress: ${countdownProgress * 100}%`}
+                  style=${`--countdown-progress: ${countdownProgress * 100}%; --pending-color: ${pendingColor}`}
                   ?disabled=${this._busy}
                   @click=${this._disarm}
                 >
@@ -772,7 +773,7 @@ export class AlarmoCardFeature extends LitElement {
       outline-offset: 2px;
     }
     .countdown-fill {
-      background: var(--ha-color-fill-warning-normal, rgba(255, 152, 0, 0.24));
+      background: color-mix(in srgb, var(--pending-color) 24%, transparent);
       bottom: 0;
       inset-inline-start: 0;
       pointer-events: none;
@@ -783,6 +784,7 @@ export class AlarmoCardFeature extends LitElement {
     }
     .pending-content {
       align-items: center;
+      color: var(--pending-color);
       display: flex;
       gap: 8px;
       justify-content: center;
@@ -792,7 +794,7 @@ export class AlarmoCardFeature extends LitElement {
       z-index: 1;
     }
     .pending-content ha-icon {
-      color: var(--feature-color, var(--primary-color));
+      color: var(--pending-color);
     }
     .countdown-value {
       font-variant-numeric: tabular-nums;
