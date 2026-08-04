@@ -52,7 +52,7 @@ type EntityNameItem = string | { type: 'entity' | 'device' | 'area' | 'floor' } 
 type EntityNameConfig = string | EntityNameItem | EntityNameItem[];
 
 type AlarmoCardFeatureConfig = {
-  type: 'custom:alarmo-card-feature';
+  type: 'custom:ha_alarmo-card-feature';
   modes?: AlarmMode[];
   name?: EntityNameConfig;
 };
@@ -181,7 +181,7 @@ export class AlarmoCardFeature extends LitElement {
   private _pendingMode?: AlarmMode;
 
   public static getStubConfig(): AlarmoCardFeatureConfig {
-    return { type: 'custom:alarmo-card-feature' };
+    return { type: 'custom:ha_alarmo-card-feature' };
   }
 
   public static async getConfigElement(): Promise<HTMLElement> {
@@ -195,7 +195,7 @@ export class AlarmoCardFeature extends LitElement {
   }
 
   public setConfig(config: AlarmoCardFeatureConfig): void {
-    if (!config || config.type !== 'custom:alarmo-card-feature') {
+    if (!config || config.type !== 'custom:ha_alarmo-card-feature') {
       throw new Error('Invalid Alarmo card feature configuration');
     }
     this._config = config;
@@ -880,18 +880,18 @@ export class AlarmoCardFeature extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'alarmo-card-feature': AlarmoCardFeature;
+    'ha_alarmo-card-feature': AlarmoCardFeature;
   }
 }
 
-if (!customElements.get('alarmo-card-feature')) {
-  customElements.define('alarmo-card-feature', AlarmoCardFeature);
+if (!customElements.get('ha_alarmo-card-feature')) {
+  customElements.define('ha_alarmo-card-feature', AlarmoCardFeature);
 }
 
 const customCardFeatures = ((window as any).customCardFeatures ||= []);
-if (!customCardFeatures.some((feature: { type?: string }) => feature.type === 'alarmo-card-feature')) {
+if (!customCardFeatures.some((feature: { type?: string }) => feature.type === 'ha_alarmo-card-feature')) {
   customCardFeatures.push({
-    type: 'alarmo-card-feature',
+    type: 'ha_alarmo-card-feature',
     name: 'Alarmo controls',
     configurable: true,
     isSupported: isAlarmModesSupported,

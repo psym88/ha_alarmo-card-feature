@@ -60,10 +60,10 @@ export class AlarmoTileCard extends LitElement {
 
   protected updated(changedProps: PropertyValues): void {
     if (!changedProps.has('hass') && !changedProps.has('_config')) return;
-    const feature = this.renderRoot.querySelector('alarmo-card-feature') as AlarmoCardFeature | null;
+    const feature = this.renderRoot.querySelector('ha_alarmo-card-feature') as AlarmoCardFeature | null;
     if (feature && this._config) {
       feature.setConfig({
-        type: 'custom:alarmo-card-feature',
+        type: 'custom:ha_alarmo-card-feature',
         modes: this._config.modes,
         name: this._config.name,
       });
@@ -72,11 +72,11 @@ export class AlarmoTileCard extends LitElement {
 
   private _renderFeature() {
     return html`
-      <alarmo-card-feature
+      <ha_alarmo-card-feature
         .hass=${this.hass}
         .context=${{ entity_id: this._config!.entity }}
         .position=${'bottom'}
-      ></alarmo-card-feature>
+      ></ha_alarmo-card-feature>
     `;
   }
 

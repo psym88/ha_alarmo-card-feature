@@ -9,7 +9,7 @@ directly with the Alarmo integration and does not modify it.
 
 ## Features
 
-- `custom:alarmo-card-feature` for native Home Assistant Tile Cards
+- `custom:ha_alarmo-card-feature` for native Home Assistant Tile Cards
 - `custom:alarmo-tile-card` as a standalone card
 - Configurable alarm-mode selection and order
 - Home Assistant-style mode controls and readiness badges
@@ -51,7 +51,7 @@ type: tile
 entity: alarm_control_panel.alarmo
 features_position: bottom
 features:
-  - type: custom:alarmo-card-feature
+  - type: custom:ha_alarmo-card-feature
     modes:
       - disarmed
       - armed_away
@@ -78,7 +78,7 @@ displayed in YAML order:
 
 ```yaml
 features:
-  - type: custom:alarmo-card-feature
+  - type: custom:ha_alarmo-card-feature
     name:
       - type: area
       - type: entity
