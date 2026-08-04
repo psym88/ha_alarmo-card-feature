@@ -817,7 +817,7 @@ export class AlarmoCardFeature extends LitElement {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      margin-top: var(--ha-card-feature-gap, 12px);
+      margin-top: 6px;
       padding: 10px;
     }
     .bypassed-sensors {
@@ -826,7 +826,7 @@ export class AlarmoCardFeature extends LitElement {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      margin-top: var(--ha-card-feature-gap, 12px);
+      margin-top: 6px;
       padding: 10px;
     }
     .triggered-heading {

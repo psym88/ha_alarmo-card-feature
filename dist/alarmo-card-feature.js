@@ -223,7 +223,7 @@ const t=globalThis,e=t.ShadowRoot&&(void 0===t.ShadyCSS||t.ShadyCSS.nativeShadow
       display: flex;
       flex-direction: column;
       gap: 6px;
-      margin-top: var(--ha-card-feature-gap, 12px);
+      margin-top: 6px;
       padding: 10px;
     }
     .bypassed-sensors {
@@ -232,7 +232,7 @@ const t=globalThis,e=t.ShadowRoot&&(void 0===t.ShadyCSS||t.ShadyCSS.nativeShadow
       display: flex;
       flex-direction: column;
       gap: 6px;
-      margin-top: var(--ha-card-feature-gap, 12px);
+      margin-top: 6px;
       padding: 10px;
     }
     .triggered-heading {
