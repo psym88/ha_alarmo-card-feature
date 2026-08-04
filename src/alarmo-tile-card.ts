@@ -3,10 +3,18 @@ import { AlarmoCardFeature } from './features/alarmo-card-feature';
 
 type AlarmMode = 'armed_home' | 'armed_away' | 'armed_night' | 'armed_vacation' | 'armed_custom_bypass' | 'disarmed';
 
+type EntityNameItem =
+  | string
+  | { type: 'entity' | 'device' | 'area' | 'floor' }
+  | { type: 'text'; text: string };
+
+type EntityNameConfig = string | EntityNameItem | EntityNameItem[];
+
 type AlarmoTileCardConfig = {
   type: 'custom:alarmo-tile-card';
   entity: string;
   modes?: AlarmMode[];
+  name?: EntityNameConfig;
 };
 
 type HomeAssistant = {
@@ -57,6 +65,7 @@ export class AlarmoTileCard extends LitElement {
       feature.setConfig({
         type: 'custom:alarmo-card-feature',
         modes: this._config.modes,
+        name: this._config.name,
       });
     }
   }

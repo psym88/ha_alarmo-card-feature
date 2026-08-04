@@ -42,6 +42,9 @@ entity: alarm_control_panel.alarmo
 features_position: bottom
 features:
   - type: custom:alarmo-card-feature
+    name:
+      - type: area
+      - type: entity
     modes:
       - disarmed
       - armed_away
@@ -56,6 +59,9 @@ the additional sensor rows are hidden in the inline layout.
 ```yaml
 type: custom:alarmo-tile-card
 entity: alarm_control_panel.alarmo
+name:
+  - type: area
+  - type: entity
 modes:
   - disarmed
   - armed_away

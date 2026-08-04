@@ -21,6 +21,7 @@ type HomeAssistant = {
   localize: (key: string, ...args: any[]) => string;
   callService: (domain: string, service: string, data?: Record<string, any>) => Promise<unknown>;
   callWS: <T>(message: Record<string, any>) => Promise<T>;
+  formatEntityName?: (stateObj: HassEntity, name?: EntityNameConfig) => string | undefined;
   connection: {
     subscribeMessage: <T>(callback: (event: T) => void, message: Record<string, any>) => Promise<UnsubscribeFunc>;
   };
@@ -46,9 +47,14 @@ type AlarmoEntityEntry = { area_id: string | number; entity_id: string };
 
 type AlarmMode = 'armed_home' | 'armed_away' | 'armed_night' | 'armed_vacation' | 'armed_custom_bypass' | 'disarmed';
 
+type EntityNameItem = string | { type: 'entity' | 'device' | 'area' | 'floor' } | { type: 'text'; text: string };
+
+type EntityNameConfig = string | EntityNameItem | EntityNameItem[];
+
 type AlarmoCardFeatureConfig = {
   type: 'custom:alarmo-card-feature';
   modes?: AlarmMode[];
+  name?: EntityNameConfig;
 };
 
 type CardFeatureContext = {
@@ -611,12 +617,20 @@ export class AlarmoCardFeature extends LitElement {
           return html`
             <button class="triggered-sensor" @click=${() => this._showSensor(entityId)}>
               <ha-state-icon .hass=${this.hass} .stateObj=${stateObj}></ha-state-icon>
-              <span>${stateObj?.attributes.friendly_name || entityId}</span>
+              <span>${this._triggeredSensorName(stateObj, entityId)}</span>
             </button>
           `;
         })}
       </div>
     `;
+  }
+
+  private _triggeredSensorName(stateObj: HassEntity | undefined, entityId: string): string {
+    if (!stateObj) return entityId;
+    if (this._config?.name !== undefined && this.hass?.formatEntityName) {
+      return this.hass.formatEntityName(stateObj, this._config.name) || entityId;
+    }
+    return stateObj.attributes.friendly_name || entityId;
   }
 
   private _renderBypassedSensors(sensorIds: string[]) {
