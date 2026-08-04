@@ -80,26 +80,26 @@ const t=globalThis,e=t.ShadowRoot&&(void 0===t.ShadyCSS||t.ShadyCSS.nativeShadow
             </button>
           `})}
       </div>
-    `:F}render(){if(!(this._config&&this.hass&&this.context&&gt(this.hass,this.context)))return F;const t=this._displayedModes(),e=this._triggeredSensorIds(),s=this._bypassedSensorIds(),i=this.hass.states[this.context.entity_id],o=this._isCountdownState(i.state),n=i.state===lt||o,r=i.state===ct?this.hass.language?.startsWith("de")?"Auslösen":"Trigger":this.hass.localize("ui.card.alarm_control_panel."+(i.state===ht?"arm":"disarm")),a=i.state===ht?"var(--green-color)":"var(--red-color)",d=t.map(t=>({value:t,label:t===dt&&i.state!==dt?this.hass.localize("ui.card.alarm_control_panel.disarm"):this.hass.localize(`ui.card.alarm_control_panel.modes.${t}`),icon:this._modeIcon(t)})),h=Boolean(this._pendingMode&&this._pendingMode!==i.state),c=o&&void 0!==this._countdownRemaining,l=c&&this._countdownDuration?Math.min(Math.max(1-this._countdownRemaining/this._countdownDuration,0),1):0;return W`
+    `:F}render(){if(!(this._config&&this.hass&&this.context&&gt(this.hass,this.context)))return F;const t=this._displayedModes(),e=this._triggeredSensorIds(),s=this._bypassedSensorIds(),i=this.hass.states[this.context.entity_id],o=this._isCountdownState(i.state),n=i.state===lt||o,r=i.state===ct?this.hass.language?.startsWith("de")?"Auslösen":"Trigger":this.hass.localize("ui.card.alarm_control_panel."+(i.state===ht?"arm":"disarm")),a=i.state===ht?"var(--green-color)":"var(--red-color)",d=i.state===ht?"mdi:shield-lock-outline":i.state===ct?"mdi:alarm-light-outline":"mdi:alarm-light",h=t.map(t=>({value:t,label:t===dt&&i.state!==dt?this.hass.localize("ui.card.alarm_control_panel.disarm"):this.hass.localize(`ui.card.alarm_control_panel.modes.${t}`),icon:this._modeIcon(t)})),c=Boolean(this._pendingMode&&this._pendingMode!==i.state),l=o&&void 0!==this._countdownRemaining,u=l&&this._countdownDuration?Math.min(Math.max(1-this._countdownRemaining/this._countdownDuration,0),1):0;return W`
       <div class=${"feature-wrapper "+(this._inline?"inline":"bottom")}>
         ${n?W`
                 <button
                   class="pending-control"
-                  style=${`--countdown-progress: ${100*l}%; --pending-color: ${a}`}
+                  style=${`--countdown-progress: ${100*u}%; --pending-color: ${a}`}
                   ?disabled=${this._busy}
                   @click=${this._disarm}
                 >
                   <span class="countdown-fill"></span>
                   <span class="pending-content">
-                    <ha-icon icon="mdi:shield-off"></ha-icon>
+                    <ha-icon .icon=${d}></ha-icon>
                     <span>${r}</span>
-                    ${c?W`<span class="countdown-value">${Math.ceil(this._countdownRemaining)} s</span>`:F}
+                    ${l?W`<span class="countdown-value">${Math.ceil(this._countdownRemaining)} s</span>`:F}
                   </span>
                 </button>
               `:W`
                 <ha-control-select
-                  .options=${d}
-                  .value=${!h&&t.includes(i.state)?i.state:void 0}
+                  .options=${h}
+                  .value=${!c&&t.includes(i.state)?i.state:void 0}
                   .label=${this.hass.localize("ui.card.alarm_control_panel.modes_label")}
                   .disabled=${"unavailable"===i.state||this._busy}
                   ?hide-option-label=${this._inline}

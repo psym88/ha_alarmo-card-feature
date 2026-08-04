@@ -674,6 +674,12 @@ export class AlarmoCardFeature extends LitElement {
             `ui.card.alarm_control_panel.${stateObj.state === ALARM_STATES.arming ? 'arm' : 'disarm'}`
           );
     const pendingColor = stateObj.state === ALARM_STATES.arming ? 'var(--green-color)' : 'var(--red-color)';
+    const pendingIcon =
+      stateObj.state === ALARM_STATES.arming
+        ? 'mdi:shield-lock-outline'
+        : stateObj.state === ALARM_STATES.pending
+          ? 'mdi:alarm-light-outline'
+          : 'mdi:alarm-light';
     const options: ControlSelectOption[] = modes.map((mode) => ({
       value: mode,
       label:
@@ -702,7 +708,7 @@ export class AlarmoCardFeature extends LitElement {
                 >
                   <span class="countdown-fill"></span>
                   <span class="pending-content">
-                    <ha-icon icon="mdi:shield-off"></ha-icon>
+                    <ha-icon .icon=${pendingIcon}></ha-icon>
                     <span>${pendingLabel}</span>
                     ${showCountdown ? html`<span class="countdown-value">${Math.ceil(this._countdownRemaining!)} s</span>` : nothing}
                   </span>
