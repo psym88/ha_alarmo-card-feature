@@ -421,7 +421,6 @@ export class AlarmoCardFeature extends LitElement {
     const entityId = this.context?.entity_id;
     if (!this.hass || !entityId) return;
     this._busy = true;
-    this._codeDialog = false;
     this._startCommandTimer();
     try {
       if (mode === ALARM_STATES.disarmed) {

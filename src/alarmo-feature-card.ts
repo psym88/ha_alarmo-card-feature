@@ -10,7 +10,7 @@ type AlarmoFeatureCardConfig = {
 };
 
 type HomeAssistant = {
-  states: Record<string, { entity_id: string }>;
+  states: Record<string, { entity_id: string; state: string }>;
 };
 
 export class AlarmoFeatureCard extends LitElement {
@@ -41,6 +41,15 @@ export class AlarmoFeatureCard extends LitElement {
     return 1;
   }
 
+  private _featureColor(): string {
+    const state = this._config ? this.hass?.states[this._config.entity]?.state : undefined;
+    if (!state || state === 'unavailable') return 'var(--state-unavailable-color)';
+    if (state === 'disarmed') {
+      return 'var(--state-alarm_control_panel-disarmed-color, var(--state-alarm_control_panel-inactive-color, var(--state-inactive-color)))';
+    }
+    return `var(--state-alarm_control_panel-${state}-color, var(--state-alarm_control_panel-active-color, var(--state-active-color)))`;
+  }
+
   protected updated(changedProps: PropertyValues): void {
     if (!changedProps.has('hass') && !changedProps.has('_config')) return;
     const feature = this.renderRoot.querySelector('alarmo-card-feature') as AlarmoCardFeature | null;
@@ -55,7 +64,7 @@ export class AlarmoFeatureCard extends LitElement {
   protected render() {
     if (!this.hass || !this._config) return nothing;
     return html`
-      <ha-card>
+      <ha-card style=${`--feature-color: ${this._featureColor()}`}>
         <alarmo-card-feature
           .hass=${this.hass}
           .context=${{ entity_id: this._config.entity }}
@@ -67,10 +76,9 @@ export class AlarmoFeatureCard extends LitElement {
 
   static styles = css`
     ha-card {
-      padding: var(--ha-card-feature-gap, 12px);
+      padding: var(--ha-space-2, 8px);
       --feature-border-radius: var(--ha-border-radius-xl, 12px);
       --feature-button-spacing: 8px;
-      --feature-color: var(--primary-color);
       --feature-height: 56px;
     }
   `;
