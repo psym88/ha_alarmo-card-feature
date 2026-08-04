@@ -617,7 +617,7 @@ export class AlarmoCardFeature extends LitElement {
           return html`
             <button class="triggered-sensor" @click=${() => this._showSensor(entityId)}>
               <ha-state-icon .hass=${this.hass} .stateObj=${stateObj}></ha-state-icon>
-              <span>${this._triggeredSensorName(stateObj, entityId)}</span>
+              <span>${this._sensorName(stateObj, entityId)}</span>
             </button>
           `;
         })}
@@ -625,7 +625,7 @@ export class AlarmoCardFeature extends LitElement {
     `;
   }
 
-  private _triggeredSensorName(stateObj: HassEntity | undefined, entityId: string): string {
+  private _sensorName(stateObj: HassEntity | undefined, entityId: string): string {
     if (!stateObj) return entityId;
     if (this._config?.name !== undefined && this.hass?.formatEntityName) {
       return this.hass.formatEntityName(stateObj, this._config.name) || entityId;
@@ -646,7 +646,7 @@ export class AlarmoCardFeature extends LitElement {
           return html`
             <button class="bypassed-sensor" @click=${() => this._showSensor(entityId)}>
               <ha-state-icon .hass=${this.hass} .stateObj=${stateObj}></ha-state-icon>
-              <span>${stateObj?.attributes.friendly_name || entityId}</span>
+              <span>${this._sensorName(stateObj, entityId)}</span>
             </button>
           `;
         })}

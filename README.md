@@ -15,7 +15,7 @@ directly with the Alarmo integration and does not modify it.
 - Home Assistant-style mode controls and readiness badges
 - PIN dialog using Home Assistant UI components
 - Forced arming with bypassed-sensor information
-- Triggered-sensor information with configurable Home Assistant entity names
+- Triggered- and bypassed-sensor information with configurable Home Assistant entity names
 - Filling countdown for exit and entry delays
 - Separate `Activate`, `Trigger`, and `Disarm` countdown states with matching
   colors and icons
@@ -70,10 +70,11 @@ The order of `modes` determines the button order. Supported values are:
 With `features_position: inline`, only icons are shown. Triggered and bypassed
 sensor information is only shown in the bottom layout.
 
-## Triggered sensor names
+## Sensor names
 
 The official Home Assistant `name` configuration controls how entity names are
-composed under **Triggered by**. Components are displayed in YAML order:
+composed under **Triggered by** and **Bypassed sensors**. Components are
+displayed in YAML order:
 
 ```yaml
 features:
@@ -119,7 +120,7 @@ name:
 | --- | --- | --- | --- | --- |
 | `entity` | Standalone card | Yes | — | Alarmo `alarm_control_panel` entity |
 | `modes` | Both | No | Supported modes | Visible modes in display order |
-| `name` | Both | No | Friendly name | Home Assistant name configuration for triggered sensors |
+| `name` | Both | No | Friendly name | Home Assistant name configuration for triggered and bypassed sensors |
 
 The Tile feature receives its entity from the parent Tile Card and therefore
 does not accept a separate `entity` option.
