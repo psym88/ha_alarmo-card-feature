@@ -3,17 +3,18 @@ import { AlarmoCardFeature } from './features/alarmo-card-feature';
 
 type AlarmMode = 'armed_home' | 'armed_away' | 'armed_night' | 'armed_vacation' | 'armed_custom_bypass' | 'disarmed';
 
-type AlarmoFeatureCardConfig = {
-  type: 'custom:alarmo-feature-card';
+type AlarmoTileCardConfig = {
+  type: 'custom:alarmo-tile-card';
   entity: string;
   modes?: AlarmMode[];
+  frameless?: boolean;
 };
 
 type HomeAssistant = {
   states: Record<string, { entity_id: string; state: string }>;
 };
 
-export class AlarmoFeatureCard extends LitElement {
+export class AlarmoTileCard extends LitElement {
   static properties = {
     hass: { attribute: false },
     _config: { state: true },
@@ -21,16 +22,17 @@ export class AlarmoFeatureCard extends LitElement {
 
   public hass?: HomeAssistant;
 
-  private _config?: AlarmoFeatureCardConfig;
+  private _config?: AlarmoTileCardConfig;
 
-  public static getStubConfig(hass: HomeAssistant): AlarmoFeatureCardConfig {
+  public static getStubConfig(hass: HomeAssistant): AlarmoTileCardConfig {
     return {
-      type: 'custom:alarmo-feature-card',
+      type: 'custom:alarmo-tile-card',
       entity: Object.keys(hass.states).find((entityId) => entityId.startsWith('alarm_control_panel.')) || '',
+      frameless: false,
     };
   }
 
-  public setConfig(config: AlarmoFeatureCardConfig): void {
+  public setConfig(config: AlarmoTileCardConfig): void {
     if (!config?.entity?.startsWith('alarm_control_panel.')) {
       throw new Error('An alarm_control_panel entity is required');
     }
@@ -61,44 +63,55 @@ export class AlarmoFeatureCard extends LitElement {
     }
   }
 
-  protected render() {
-    if (!this.hass || !this._config) return nothing;
+  private _renderFeature() {
     return html`
-      <ha-card style=${`--feature-color: ${this._featureColor()}`}>
-        <alarmo-card-feature
-          .hass=${this.hass}
-          .context=${{ entity_id: this._config.entity }}
-          .position=${'bottom'}
-        ></alarmo-card-feature>
-      </ha-card>
+      <alarmo-card-feature
+        .hass=${this.hass}
+        .context=${{ entity_id: this._config!.entity }}
+        .position=${'bottom'}
+      ></alarmo-card-feature>
     `;
   }
 
+  protected render() {
+    if (!this.hass || !this._config) return nothing;
+    const style = `--feature-color: ${this._featureColor()}`;
+    return this._config.frameless
+      ? html`<div class="container frameless" style=${style}>${this._renderFeature()}</div>`
+      : html`<ha-card class="container framed" style=${style}>${this._renderFeature()}</ha-card>`;
+  }
+
   static styles = css`
-    ha-card {
-      padding: var(--ha-space-2, 8px);
+    .container {
       --feature-border-radius: var(--ha-border-radius-xl, 12px);
       --feature-button-spacing: 8px;
       --feature-height: 56px;
     }
+    .framed {
+      padding: var(--ha-space-2, 8px);
+    }
+    .frameless {
+      display: block;
+      padding: 0;
+    }
   `;
 }
 
-if (!customElements.get('alarmo-feature-card')) {
-  customElements.define('alarmo-feature-card', AlarmoFeatureCard);
+if (!customElements.get('alarmo-tile-card')) {
+  customElements.define('alarmo-tile-card', AlarmoTileCard);
 }
 
 const customCards = ((window as any).customCards ||= []);
-if (!customCards.some((card: { type?: string }) => card.type === 'alarmo-feature-card')) {
+if (!customCards.some((card: { type?: string }) => card.type === 'alarmo-tile-card')) {
   customCards.push({
-    type: 'alarmo-feature-card',
-    name: 'Alarmo Feature Card',
+    type: 'alarmo-tile-card',
+    name: 'Alarmo Tile Card',
     description: 'Standalone card containing only the Alarmo tile feature controls.',
   });
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'alarmo-feature-card': AlarmoFeatureCard;
+    'alarmo-tile-card': AlarmoTileCard;
   }
 }

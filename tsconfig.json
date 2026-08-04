@@ -15,5 +15,5 @@
     "useDefineForClassFields": false,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src/alarmo-card-feature.ts", "src/alarmo-feature-card.ts", "src/features/**/*.ts"]
+  "include": ["src/alarmo-card-feature.ts", "src/alarmo-tile-card.ts", "src/features/**/*.ts"]
 }

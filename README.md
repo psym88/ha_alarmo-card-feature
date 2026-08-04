@@ -6,7 +6,7 @@ Standalone Home Assistant Tile Card feature for the
 The bundle provides:
 
 - `custom:alarmo-card-feature` for Home Assistant Tile Cards
-- `custom:alarmo-feature-card`, a standalone card containing only the feature
+- `custom:alarmo-tile-card`, a standalone card containing only the feature
 - configurable alarm-mode order
 - PIN dialog using Home Assistant UI elements
 - readiness indicators
@@ -54,13 +54,17 @@ the additional sensor rows are hidden in the inline layout.
 ## Standalone card
 
 ```yaml
-type: custom:alarmo-feature-card
+type: custom:alarmo-tile-card
 entity: alarm_control_panel.alarmo
+frameless: false
 modes:
   - disarmed
   - armed_away
   - armed_home
 ```
+
+Set `frameless: true` to render the controls without an `ha-card`
+background, border, shadow, or additional card padding.
 
 ## Development
 

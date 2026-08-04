@@ -1,2 +1,2 @@
 import './features/alarmo-card-feature';
-import './alarmo-feature-card';
+import './alarmo-tile-card';

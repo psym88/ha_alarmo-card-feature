@@ -277,19 +277,23 @@ const t=globalThis,e=t.ShadowRoot&&(void 0===t.ShadyCSS||t.ShadyCSS.nativeShadow
       padding: 6px;
       text-align: start;
     }
-  `}}customElements.get("alarmo-card-feature")||customElements.define("alarmo-card-feature",mt);const gt=window.customCardFeatures||=[];gt.some(t=>"alarmo-card-feature"===t.type)||gt.push({type:"alarmo-card-feature",name:"Alarmo controls",configurable:!0,isSupported:_t});class ft extends rt{static{this.properties={hass:{attribute:!1},_config:{state:!0}}}static getStubConfig(t){return{type:"custom:alarmo-feature-card",entity:Object.keys(t.states).find(t=>t.startsWith("alarm_control_panel."))||""}}setConfig(t){if(!t?.entity?.startsWith("alarm_control_panel."))throw new Error("An alarm_control_panel entity is required");this._config=t}getCardSize(){return 1}_featureColor(){const t=this._config?this.hass?.states[this._config.entity]?.state:void 0;return t&&"unavailable"!==t?"disarmed"===t?"var(--state-alarm_control_panel-disarmed-color, var(--state-alarm_control_panel-inactive-color, var(--state-inactive-color)))":`var(--state-alarm_control_panel-${t}-color, var(--state-alarm_control_panel-active-color, var(--state-active-color)))`:"var(--state-unavailable-color)"}updated(t){if(!t.has("hass")&&!t.has("_config"))return;const e=this.renderRoot.querySelector("alarmo-card-feature");e&&this._config&&e.setConfig({type:"custom:alarmo-card-feature",modes:this._config.modes})}render(){return this.hass&&this._config?W`
-      <ha-card style=${`--feature-color: ${this._featureColor()}`}>
-        <alarmo-card-feature
-          .hass=${this.hass}
-          .context=${{entity_id:this._config.entity}}
-          .position=${"bottom"}
-        ></alarmo-card-feature>
-      </ha-card>
-    `:F}static{this.styles=n`
-    ha-card {
-      padding: var(--ha-space-2, 8px);
+  `}}customElements.get("alarmo-card-feature")||customElements.define("alarmo-card-feature",mt);const gt=window.customCardFeatures||=[];gt.some(t=>"alarmo-card-feature"===t.type)||gt.push({type:"alarmo-card-feature",name:"Alarmo controls",configurable:!0,isSupported:_t});class ft extends rt{static{this.properties={hass:{attribute:!1},_config:{state:!0}}}static getStubConfig(t){return{type:"custom:alarmo-tile-card",entity:Object.keys(t.states).find(t=>t.startsWith("alarm_control_panel."))||"",frameless:!1}}setConfig(t){if(!t?.entity?.startsWith("alarm_control_panel."))throw new Error("An alarm_control_panel entity is required");this._config=t}getCardSize(){return 1}_featureColor(){const t=this._config?this.hass?.states[this._config.entity]?.state:void 0;return t&&"unavailable"!==t?"disarmed"===t?"var(--state-alarm_control_panel-disarmed-color, var(--state-alarm_control_panel-inactive-color, var(--state-inactive-color)))":`var(--state-alarm_control_panel-${t}-color, var(--state-alarm_control_panel-active-color, var(--state-active-color)))`:"var(--state-unavailable-color)"}updated(t){if(!t.has("hass")&&!t.has("_config"))return;const e=this.renderRoot.querySelector("alarmo-card-feature");e&&this._config&&e.setConfig({type:"custom:alarmo-card-feature",modes:this._config.modes})}_renderFeature(){return W`
+      <alarmo-card-feature
+        .hass=${this.hass}
+        .context=${{entity_id:this._config.entity}}
+        .position=${"bottom"}
+      ></alarmo-card-feature>
+    `}render(){if(!this.hass||!this._config)return F;const t=`--feature-color: ${this._featureColor()}`;return this._config.frameless?W`<div class="container frameless" style=${t}>${this._renderFeature()}</div>`:W`<ha-card class="container framed" style=${t}>${this._renderFeature()}</ha-card>`}static{this.styles=n`
+    .container {
       --feature-border-radius: var(--ha-border-radius-xl, 12px);
       --feature-button-spacing: 8px;
       --feature-height: 56px;
     }
-  `}}customElements.get("alarmo-feature-card")||customElements.define("alarmo-feature-card",ft);const $t=window.customCards||=[];$t.some(t=>"alarmo-feature-card"===t.type)||$t.push({type:"alarmo-feature-card",name:"Alarmo Feature Card",description:"Standalone card containing only the Alarmo tile feature controls."});
+    .framed {
+      padding: var(--ha-space-2, 8px);
+    }
+    .frameless {
+      display: block;
+      padding: 0;
+    }
+  `}}customElements.get("alarmo-tile-card")||customElements.define("alarmo-tile-card",ft);const $t=window.customCards||=[];$t.some(t=>"alarmo-tile-card"===t.type)||$t.push({type:"alarmo-tile-card",name:"Alarmo Tile Card",description:"Standalone card containing only the Alarmo tile feature controls."});
