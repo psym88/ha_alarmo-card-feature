@@ -83,7 +83,7 @@ export class AlarmoTileCard extends LitElement {
 
   static styles = css`
     .container {
-      --feature-border-radius: calc(var(--ha-card-border-radius, var(--ha-border-radius-xl, 12px)) - 4px);
+      --feature-border-radius: calc(var(--ha-card-border-radius, var(--ha-border-radius-xl, 12px)) - 6px);
       --feature-button-spacing: 2px;
       --control-select-button-spacing: var(--feature-button-spacing);
       --feature-height: 56px;

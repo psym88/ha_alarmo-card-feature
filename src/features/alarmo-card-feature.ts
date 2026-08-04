@@ -715,6 +715,7 @@ export class AlarmoCardFeature extends LitElement {
       --control-select-thickness: 56px;
     }
     ha-control-select {
+      --control-select-background-opacity: 0;
       --control-select-color: var(--feature-color);
       --control-select-padding: 0;
       --control-select-thickness: var(--feature-height);
