@@ -285,13 +285,12 @@ const t=globalThis,e=t.ShadowRoot&&(void 0===t.ShadyCSS||t.ShadyCSS.nativeShadow
       ></alarmo-card-feature>
     `}render(){if(!this.hass||!this._config)return F;const t=`--feature-color: ${this._featureColor()}`;return this._config.frameless?W`<div class="container frameless" style=${t}>${this._renderFeature()}</div>`:W`<ha-card class="container framed" style=${t}>${this._renderFeature()}</ha-card>`}static{this.styles=r`
     .container {
-      --feature-border-radius: var(--ha-card-border-radius, var(--ha-border-radius-xl, 12px));
+      --feature-border-radius: calc(var(--ha-card-border-radius, var(--ha-border-radius-xl, 12px)) - 2px);
       --feature-button-spacing: 2px;
       --control-select-button-spacing: var(--feature-button-spacing);
       --feature-height: 56px;
     }
     .framed {
-      border-radius: var(--feature-border-radius);
       padding: 2px;
     }
     .frameless {
