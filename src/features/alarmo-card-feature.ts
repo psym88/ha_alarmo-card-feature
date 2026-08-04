@@ -663,7 +663,16 @@ export class AlarmoCardFeature extends LitElement {
     const triggeredSensors = this._triggeredSensorIds();
     const bypassedSensors = this._bypassedSensorIds();
     const stateObj = this.hass.states[this.context.entity_id!];
-    const pendingState = stateObj.state === ALARM_STATES.triggered || this._isCountdownState(stateObj.state);
+    const activationPending = this._isCountdownState(stateObj.state);
+    const pendingState = stateObj.state === ALARM_STATES.triggered || activationPending;
+    const pendingLabel =
+      stateObj.state === ALARM_STATES.pending
+        ? this.hass.language?.startsWith('de')
+          ? 'Auslösen'
+          : 'Trigger'
+        : this.hass.localize(
+            `ui.card.alarm_control_panel.${stateObj.state === ALARM_STATES.arming ? 'arm' : 'disarm'}`
+          );
     const options: ControlSelectOption[] = modes.map((mode) => ({
       value: mode,
       label:
@@ -673,7 +682,7 @@ export class AlarmoCardFeature extends LitElement {
       icon: this._modeIcon(mode),
     }));
     const selectionPending = Boolean(this._pendingMode && this._pendingMode !== stateObj.state);
-    const showCountdown = this._isCountdownState(stateObj.state) && this._countdownRemaining !== undefined;
+    const showCountdown = activationPending && this._countdownRemaining !== undefined;
     const countdownProgress =
       showCountdown && this._countdownDuration
         ? Math.min(Math.max(1 - this._countdownRemaining! / this._countdownDuration, 0), 1)
@@ -693,9 +702,7 @@ export class AlarmoCardFeature extends LitElement {
                   <span class="countdown-fill"></span>
                   <span class="pending-content">
                     <ha-icon icon="mdi:shield-off"></ha-icon>
-                    <span
-                      >${this.hass.localize(`ui.card.alarm_control_panel.${showCountdown ? 'arm' : 'disarm'}`)}</span
-                    >
+                    <span>${pendingLabel}</span>
                     ${showCountdown ? html`<span class="countdown-value">${Math.ceil(this._countdownRemaining!)} s</span>` : nothing}
                   </span>
                 </button>
