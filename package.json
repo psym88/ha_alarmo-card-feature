@@ -1,7 +1,7 @@
 {
   "name": "alarmo-card-feature",
-  "version": "0.1.0",
-  "description": "Standalone Alarmo tile card feature for Home Assistant",
+  "version": "0.1.1",
+  "description": "HA Alarmo Tile Feature and standalone Alarmo Tile Card for Home Assistant",
   "main": "dist/alarmo-card-feature.js",
   "type": "module",
   "scripts": {
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/psym88/ha_alarmo-card.git"
+    "url": "git+https://github.com/psym88/ha_alarmo-card-feature.git"
   },
   "author": "psym88",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/psym88/ha_alarmo-card/issues"
+    "url": "https://github.com/psym88/ha_alarmo-card-feature/issues"
   },
-  "homepage": "https://github.com/psym88/ha_alarmo-card#readme",
+  "homepage": "https://github.com/psym88/ha_alarmo-card-feature#readme",
   "dependencies": {
     "lit": "^3.3.3"
   },
