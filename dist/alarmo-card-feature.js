@@ -42,17 +42,17 @@ const t=globalThis,e=t.ShadowRoot&&(void 0===t.ShadyCSS||t.ShadyCSS.nativeShadow
           <ha-button slot="primaryAction" .disabled=${this._busy} @click=${this._submitCode}>${e}</ha-button>
         </ha-dialog-footer>
       </ha-adaptive-dialog>
-    `}_displayedModes(){const t=this.context?.entity_id,e=t?this.hass?.states[t]:void 0;if(!e)return[];const s=Number(e.attributes.supported_features)||0,i=mt.filter(t=>t===dt||Boolean((pt[t]||0)&s)).reverse();return this._config?.modes?this._config.modes.filter(t=>i.includes(t)):i}_modeIcon(t){const e=this._readyForArmModes?.includes(t),s=null!==this._readyForArmModes,i=e?this.hass.language?.startsWith("de")?"Keine Sensoren werden umgangen":"No sensors will be bypassed":this.hass.language?.startsWith("de")?"Offene Sensoren werden umgangen":"Open sensors will be bypassed";return W`
+    `}_displayedModes(){const t=this.context?.entity_id,e=t?this.hass?.states[t]:void 0;if(!e)return[];const s=Number(e.attributes.supported_features)||0,i=mt.filter(t=>t===dt||Boolean((pt[t]||0)&s)).reverse();return this._config?.modes?this._config.modes.filter(t=>i.includes(t)):i}_modeIcon(t){const e=this._readyForArmModes?.includes(t),s=!!this.context?.entity_id&&this.hass?.states[this.context.entity_id]?.state===t,i=null!==this._readyForArmModes,o=e?this.hass.language?.startsWith("de")?"Keine Sensoren werden umgangen":"No sensors will be bypassed":this.hass.language?.startsWith("de")?"Offene Sensoren werden umgangen":"Open sensors will be bypassed";return W`
       <span
         style=${`align-items: center; display: inline-flex; flex: 0 0 24px; height: 24px; justify-content: center; margin-block-end: ${this._inline?"0":"-4px"}; position: relative; width: 24px;`}
       >
         <ha-icon icon=${ut[t]}></ha-icon>
-        ${t!==dt&&s?W`
+        ${t===dt||s||!i?F:W`
                 <span
-                  title=${i}
+                  title=${o}
                   style=${`background: var(--${e?"green":"red"}-color); border: 2px solid var(--card-background-color, white); border-radius: 50%; height: 7px; inset-inline-end: -3px; position: absolute; top: 0; width: 7px;`}
                 ></span>
-              `:F}
+              `}
       </span>
     `}_triggeredSensorIds(){const t=this.context?.entity_id,e=t?this.hass?.states[t]:void 0;if(e?.state!==lt)return[];const s=Object.keys(e.attributes.open_sensors||{});return this._triggeredSensors.length?this._triggeredSensors:s}_bypassedSensorIds(){const t=this.context?.entity_id,e=t?this.hass?.states[t]:void 0;return e?.state.startsWith("armed_")&&e.attributes.bypassed_sensors||[]}_showSensor(t){this.dispatchEvent(new CustomEvent("hass-more-info",{bubbles:!0,composed:!0,detail:{entityId:t}}))}_renderTriggeredSensors(t){return!this._inline&&t.length&&this.hass?W`
       <div class="triggered-sensors">

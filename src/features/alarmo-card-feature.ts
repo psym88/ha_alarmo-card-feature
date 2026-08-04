@@ -547,6 +547,7 @@ export class AlarmoCardFeature extends LitElement {
 
   private _modeIcon(mode: AlarmMode): TemplateResult {
     const ready = this._readyForArmModes?.includes(mode);
+    const activeMode = this.context?.entity_id ? this.hass?.states[this.context.entity_id]?.state === mode : false;
     const showReadiness = this._readyForArmModes !== null;
     const readinessTitle = ready
       ? this.hass!.language?.startsWith('de')
@@ -563,7 +564,7 @@ export class AlarmoCardFeature extends LitElement {
       >
         <ha-icon icon=${MODE_ICONS[mode]}></ha-icon>
         ${
-          mode === ALARM_STATES.disarmed || !showReadiness
+          mode === ALARM_STATES.disarmed || activeMode || !showReadiness
             ? nothing
             : html`
                 <span
