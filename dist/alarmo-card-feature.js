@@ -42,7 +42,7 @@ const t=globalThis,e=t.ShadowRoot&&(void 0===t.ShadyCSS||t.ShadyCSS.nativeShadow
           <ha-button slot="primaryAction" .disabled=${this._busy} @click=${this._submitCode}>${e}</ha-button>
         </ha-dialog-footer>
       </ha-adaptive-dialog>
-    `}_displayedModes(){const t=this.context?.entity_id,e=t?this.hass?.states[t]:void 0;if(!e)return[];const s=Number(e.attributes.supported_features)||0,i=mt.filter(t=>t===dt||Boolean((pt[t]||0)&s)).reverse();return this._config?.modes?this._config.modes.filter(t=>i.includes(t)):i}_modeIcon(t){const e=this._readyForArmModes?.includes(t),s=(this.context?.entity_id?this.hass?.states[this.context.entity_id]?.state:void 0)===dt&&null!==this._readyForArmModes,i=e?this.hass.language?.startsWith("de")?"Keine Sensoren werden umgangen":"No sensors will be bypassed":this.hass.language?.startsWith("de")?"Offene Sensoren werden umgangen":"Open sensors will be bypassed";return W`
+    `}_displayedModes(){const t=this.context?.entity_id,e=t?this.hass?.states[t]:void 0;if(!e)return[];const s=Number(e.attributes.supported_features)||0,i=mt.filter(t=>t===dt||Boolean((pt[t]||0)&s)).reverse();return this._config?.modes?this._config.modes.filter(t=>i.includes(t)):i}_modeIcon(t){const e=this._readyForArmModes?.includes(t),s=null!==this._readyForArmModes,i=e?this.hass.language?.startsWith("de")?"Keine Sensoren werden umgangen":"No sensors will be bypassed":this.hass.language?.startsWith("de")?"Offene Sensoren werden umgangen":"Open sensors will be bypassed";return W`
       <span
         style=${`align-items: center; display: inline-flex; flex: 0 0 24px; height: 24px; justify-content: center; margin-block-end: ${this._inline?"0":"-4px"}; position: relative; width: 24px;`}
       >

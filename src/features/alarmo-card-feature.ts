@@ -547,8 +547,7 @@ export class AlarmoCardFeature extends LitElement {
 
   private _modeIcon(mode: AlarmMode): TemplateResult {
     const ready = this._readyForArmModes?.includes(mode);
-    const alarmState = this.context?.entity_id ? this.hass?.states[this.context.entity_id]?.state : undefined;
-    const showReadiness = alarmState === ALARM_STATES.disarmed && this._readyForArmModes !== null;
+    const showReadiness = this._readyForArmModes !== null;
     const readinessTitle = ready
       ? this.hass!.language?.startsWith('de')
         ? 'Keine Sensoren werden umgangen'
