@@ -679,7 +679,9 @@ export class AlarmoCardFeature extends LitElement {
                   <span class="countdown-fill"></span>
                   <span class="pending-content">
                     <ha-icon icon="mdi:shield-off"></ha-icon>
-                    <span>${this.hass.localize('ui.card.alarm_control_panel.disarm')}</span>
+                    <span
+                      >${this.hass.localize(`ui.card.alarm_control_panel.${showCountdown ? 'arm' : 'disarm'}`)}</span
+                    >
                     ${showCountdown ? html`<span class="countdown-value">${Math.ceil(this._countdownRemaining!)} s</span>` : nothing}
                   </span>
                 </button>

@@ -92,7 +92,9 @@ const t=globalThis,e=t.ShadowRoot&&(void 0===t.ShadyCSS||t.ShadyCSS.nativeShadow
                   <span class="countdown-fill"></span>
                   <span class="pending-content">
                     <ha-icon icon="mdi:shield-off"></ha-icon>
-                    <span>${this.hass.localize("ui.card.alarm_control_panel.disarm")}</span>
+                    <span
+                      >${this.hass.localize("ui.card.alarm_control_panel."+(a?"arm":"disarm"))}</span
+                    >
                     ${a?W`<span class="countdown-value">${Math.ceil(this._countdownRemaining)} s</span>`:F}
                   </span>
                 </button>
@@ -292,7 +294,7 @@ const t=globalThis,e=t.ShadowRoot&&(void 0===t.ShadyCSS||t.ShadyCSS.nativeShadow
       --feature-height: 56px;
     }
     .framed {
-      padding: 2px;
+      padding: 4px;
     }
     .frameless {
       display: block;

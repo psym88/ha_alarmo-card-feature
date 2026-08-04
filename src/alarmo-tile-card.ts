@@ -89,7 +89,7 @@ export class AlarmoTileCard extends LitElement {
       --feature-height: 56px;
     }
     .framed {
-      padding: 2px;
+      padding: 4px;
     }
     .frameless {
       display: block;
