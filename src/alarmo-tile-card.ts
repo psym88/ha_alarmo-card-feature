@@ -83,12 +83,14 @@ export class AlarmoTileCard extends LitElement {
 
   static styles = css`
     .container {
-      --feature-border-radius: var(--ha-border-radius-xl, 12px);
-      --feature-button-spacing: 8px;
+      --feature-border-radius: var(--ha-card-border-radius, var(--ha-border-radius-xl, 12px));
+      --feature-button-spacing: 2px;
+      --control-select-button-spacing: var(--feature-button-spacing);
       --feature-height: 56px;
     }
     .framed {
-      padding: var(--ha-space-2, 8px);
+      border-radius: var(--feature-border-radius);
+      padding: 2px;
     }
     .frameless {
       display: block;
