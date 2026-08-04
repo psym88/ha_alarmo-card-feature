@@ -41,7 +41,7 @@ The original Alarmo Card is not a dependency.
 HACS normally registers this resource automatically:
 
 ```text
-/hacsfiles/ha_alarmo-card-feature/alarmo-card-feature.js?hacstag=…
+/hacsfiles/ha_alarmo-card-feature/ha_alarmo-card-feature.js?hacstag=…
 ```
 
 ## Tile Card feature
@@ -137,14 +137,14 @@ sensors are listed below the controls in the bottom layout.
 
 ## Manual installation
 
-1. Download `alarmo-card-feature.js` from the latest GitHub release.
-2. Copy it to `/config/www/alarmo-card-feature/alarmo-card-feature.js`.
+1. Download `ha_alarmo-card-feature.js` from the latest GitHub release.
+2. Copy it to `/config/www/ha_alarmo-card-feature/ha_alarmo-card-feature.js`.
 3. Register it as a JavaScript module:
 
 ```yaml
 lovelace:
   resources:
-    - url: /local/alarmo-card-feature/alarmo-card-feature.js
+    - url: /local/ha_alarmo-card-feature/ha_alarmo-card-feature.js
       type: module
 ```
 
@@ -155,7 +155,7 @@ npm install
 npm run build
 ```
 
-The minified bundle is written to `dist/alarmo-card-feature.js`.
+The minified bundle is written to `dist/ha_alarmo-card-feature.js`.
 
 ## License
 

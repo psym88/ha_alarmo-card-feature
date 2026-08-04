@@ -17,7 +17,7 @@ export default [
   {
     input: 'src/alarmo-card-feature.ts',
     output: {
-      file: 'dist/alarmo-card-feature.js',
+      file: 'dist/ha_alarmo-card-feature.js',
       format: 'es',
       sourcemap: false,
       inlineDynamicImports: true,
