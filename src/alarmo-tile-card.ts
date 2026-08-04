@@ -11,7 +11,7 @@ type EntityNameItem =
 type EntityNameConfig = string | EntityNameItem | EntityNameItem[];
 
 type AlarmoTileCardConfig = {
-  type: 'custom:alarmo-tile-card';
+  type: 'custom:ha_alarmo-tile-card';
   entity: string;
   modes?: AlarmMode[];
   name?: EntityNameConfig;
@@ -33,7 +33,7 @@ export class AlarmoTileCard extends LitElement {
 
   public static getStubConfig(hass: HomeAssistant): AlarmoTileCardConfig {
     return {
-      type: 'custom:alarmo-tile-card',
+      type: 'custom:ha_alarmo-tile-card',
       entity: Object.keys(hass.states).find((entityId) => entityId.startsWith('alarm_control_panel.')) || '',
     };
   }
@@ -97,21 +97,21 @@ export class AlarmoTileCard extends LitElement {
   `;
 }
 
-if (!customElements.get('alarmo-tile-card')) {
-  customElements.define('alarmo-tile-card', AlarmoTileCard);
+if (!customElements.get('ha_alarmo-tile-card')) {
+  customElements.define('ha_alarmo-tile-card', AlarmoTileCard);
 }
 
 const customCards = ((window as any).customCards ||= []);
-if (!customCards.some((card: { type?: string }) => card.type === 'alarmo-tile-card')) {
+if (!customCards.some((card: { type?: string }) => card.type === 'ha_alarmo-tile-card')) {
   customCards.push({
-    type: 'alarmo-tile-card',
-    name: 'Alarmo Tile Card',
+    type: 'ha_alarmo-tile-card',
+    name: 'HA Alarmo Tile Card',
     description: 'Standalone card containing only the Alarmo tile feature controls.',
   });
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'alarmo-tile-card': AlarmoTileCard;
+    'ha_alarmo-tile-card': AlarmoTileCard;
   }
 }

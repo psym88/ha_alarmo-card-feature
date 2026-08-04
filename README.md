@@ -10,7 +10,7 @@ directly with the Alarmo integration and does not modify it.
 ## Features
 
 - `custom:ha_alarmo-card-feature` for native Home Assistant Tile Cards
-- `custom:alarmo-tile-card` as a standalone card
+- `custom:ha_alarmo-tile-card` as a standalone card
 - Configurable alarm-mode selection and order
 - Home Assistant-style mode controls and readiness badges
 - PIN dialog using Home Assistant UI components
@@ -103,7 +103,7 @@ Without `name`, the entity's friendly name is displayed.
 The same controls can be used without a parent Tile Card:
 
 ```yaml
-type: custom:alarmo-tile-card
+type: custom:ha_alarmo-tile-card
 entity: alarm_control_panel.alarmo
 modes:
   - disarmed
