@@ -210,7 +210,7 @@ const t=globalThis,e=t.ShadowRoot&&(void 0===t.ShadyCSS||t.ShadyCSS.nativeShadow
       display: flex;
       flex-direction: column;
       gap: 6px;
-      margin-top: 6px;
+      margin-top: 4px;
       padding: 10px;
     }
     .sensor-list.triggered {

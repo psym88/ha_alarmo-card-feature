@@ -835,7 +835,7 @@ export class AlarmoCardFeature extends LitElement {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      margin-top: 6px;
+      margin-top: 4px;
       padding: 10px;
     }
     .sensor-list.triggered {
