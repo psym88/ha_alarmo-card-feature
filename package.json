@@ -15,7 +15,7 @@
     "url": "git+https://github.com/psym88/ha_alarmo-card-feature.git"
   },
   "author": "psym88",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/psym88/ha_alarmo-card-feature/issues"
   },

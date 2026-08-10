@@ -159,4 +159,4 @@ The minified bundle is written to `dist/ha_alarmo-card-feature.js`.
 
 ## License
 
-[Apache-2.0](LICENSE)
+[MIT](LICENSE)
