@@ -34,11 +34,10 @@ jobs:
       FORGEJO_API_URL: ${{ github.api_url }}
       FORGEJO_REPOSITORY: ${{ github.repository }}
       GITHUB_DISTRIBUTION_REPOSITORY: psym88/ha_alarmo-card-feature
-      # What the published copy leaves out. The default list in the script keeps
-      # the development folder, the tests and the package manager files here; this
-      # repository adds its build inputs, because GitHub only ever installs the
-      # bundle in dist/.
-      PUBLISH_IGNORE: .forgejo .gitea .github test tests scripts .gitignore package.json package-lock.json src tsconfig.json rollup.config.mjs eslint.config.mjs .prettierrc
+      # What the published copy holds. The file hacs.json names comes along with
+      # it, which here is the bundle in dist/, so the sources, the build inputs and
+      # the package manager files stay on Forgejo without being named anywhere.
+      PUBLISH_INCLUDE: hacs.json README.md LICENSE images
       BRANCH: main
       RELEASE_TAG: ${{ inputs.tag || github.event.release.tag_name }}
     steps:
